@@ -1,3 +1,4 @@
+import VLibras from '@djpfs/react-vlibras';
 import { MantineProvider } from '@mantine/core';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -12,6 +13,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <MantineProvider theme={theme}>
+        <VLibras forceOnload={true} />
         <BrowserRouter>
           <Routes>
             {allRoutes.map((route: RoutesType, index: number) => (
