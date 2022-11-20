@@ -34,7 +34,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const cnpj = form.values.cnpj.replaceAll(/\D/g, '');
-    if (cnpj.length === 14) submit();
+    if (cnpj.length === 14 && Object.keys(form.errors).length === 0) submit();
   }, [form.values.cnpj]);
 
   const Options = () => {

@@ -27,7 +27,7 @@ const useStyles = createStyles((theme, { vector }: IStyles) => ({
     width: '100%',
     height: '100%',
     display: 'flex',
-    [`@media (max-width: ${theme.breakpoints.xl}px)`]: {
+    [`@media (max-width: ${theme.breakpoints.md}px)`]: {
       flexDirection: 'column',
       justifyContent: 'center',
       gap: '2rem',
@@ -38,7 +38,7 @@ const useStyles = createStyles((theme, { vector }: IStyles) => ({
   },
   leftFrame: {
     width: 'calc(100vw - 52.5vw)',
-    [`@media (max-width: ${theme.breakpoints.xl}px)`]: {
+    [`@media (max-width: ${theme.breakpoints.md}px)`]: {
       width: '100%',
     },
     display: 'flex',
@@ -47,7 +47,7 @@ const useStyles = createStyles((theme, { vector }: IStyles) => ({
   },
   rightFrame: {
     width: '52.5vw',
-    [`@media (max-width: ${theme.breakpoints.xl}px)`]: {
+    [`@media (max-width: ${theme.breakpoints.md}px)`]: {
       width: '100%',
       borderRadius: '25px',
       height: '50%',
