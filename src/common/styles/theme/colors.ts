@@ -12,9 +12,16 @@ export type ColorsType = {
 };
 
 const colors = {
-  primary: {},
+  primary: {
+    main: '#043959',
+    light: '#0578A6',
+    dark: '#035373',
+  },
   secondary: {},
-  texts: {},
+  texts: {
+    main: '#E4EEF2',
+    dark: '#0588A6',
+  },
   background: '',
 } as ColorsType;
 
