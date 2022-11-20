@@ -27,18 +27,31 @@ const useStyles = createStyles((theme, { vector }: IStyles) => ({
     width: '100%',
     height: '100%',
     display: 'flex',
+    [`@media (max-width: ${theme.breakpoints.xl}px)`]: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+      gap: '2rem',
+    },
   },
   logo: {
     width: '26rem',
   },
   leftFrame: {
     width: 'calc(100vw - 52.5vw)',
+    [`@media (max-width: ${theme.breakpoints.xl}px)`]: {
+      width: '100%',
+    },
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
   rightFrame: {
     width: '52.5vw',
+    [`@media (max-width: ${theme.breakpoints.xl}px)`]: {
+      width: '100%',
+      borderRadius: '25px',
+      height: '50%',
+    },
     backgroundColor: colors.background,
     borderRadius: '25px 0 0 25px',
     display: 'flex',
