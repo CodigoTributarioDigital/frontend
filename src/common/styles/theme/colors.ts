@@ -7,7 +7,7 @@ type ObjectColors = {
 export type ColorsType = {
   primary: ObjectColors;
   secondary: ObjectColors;
-  texts: ObjectColors;
+  texts: ObjectColors | any;
   background: string;
 };
 
@@ -21,8 +21,10 @@ const colors = {
   texts: {
     main: '#E4EEF2',
     dark: '#0588A6',
+    light: '#0BA8CC',
+    grey: '#9C9C9C',
   },
-  background: '',
+  background: '#F8F8F8',
 } as ColorsType;
 
 export { colors };

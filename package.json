@@ -12,16 +12,21 @@
     "@djpfs/react-vlibras": "^2.0.2",
     "@emotion/react": "^11.10.5",
     "@mantine/core": "^5.8.2",
+    "@mantine/form": "^5.8.2",
     "@mantine/hooks": "^5.8.2",
     "@tanstack/react-query": "^4.16.1",
     "@tanstack/react-query-devtools": "^4.16.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.3"
+    "react-router-dom": "^6.4.3",
+    "react-text-mask": "^5.5.0",
+    "tabler-icons-react": "^1.55.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
+    "@types/react-text-mask": "^5.4.11",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@vitejs/plugin-react": "^2.2.0",
     "eslint": "^8.28.0",

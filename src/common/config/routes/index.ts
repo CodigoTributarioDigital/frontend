@@ -1,4 +1,4 @@
-import HomePage from '../../components/Homepage';
+import HomePage from '../../../pages/Homepage';
 
 export type RoutesType = {
   path: string;

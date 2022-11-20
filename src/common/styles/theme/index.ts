@@ -11,6 +11,9 @@ const theme: MantineThemeOverride = {
   },
   primaryColor: 'euContribuinteBlue',
   fontFamily: 'Poppins',
+  headings: {
+    fontFamily: 'Poppins',
+  },
 };
 
 export { theme };
