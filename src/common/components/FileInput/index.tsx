@@ -1,16 +1,11 @@
 import { Box, Title } from '@mantine/core';
-import { Dropzone } from '@mantine/dropzone';
+import { Dropzone, DropzoneProps } from '@mantine/dropzone';
 import { FileUpload } from 'tabler-icons-react';
 import { colors } from '../../styles/theme/colors';
 
-export default function FileInput() {
+export default function FileInput(props: DropzoneProps) {
   return (
-    <Dropzone
-      onDrop={(files) => console.log('accepted files', files)}
-      onReject={(files) => console.log('rejected files', files)}
-      maxSize={3 * 1024 ** 2}
-      sx={{ height: '20rem' }}
-    >
+    <Dropzone maxSize={3 * 1024 ** 2} sx={{ height: '20rem' }} {...props}>
       <Box
         sx={{
           display: 'flex',

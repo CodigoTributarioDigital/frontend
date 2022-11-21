@@ -1,6 +1,6 @@
 import { Anchor, Box, Title } from '@mantine/core';
 import { useForm, yupResolver } from '@mantine/form';
-import { openModal as openMantineModal } from '@mantine/modals';
+import { openModal as openMantineModal, closeAllModals } from '@mantine/modals';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowNarrowLeft } from 'tabler-icons-react';
@@ -54,7 +54,23 @@ export default function HomePage() {
       openMantineModal({
         centered: true,
         title: !accepted ? 'Faça upload da sua EFD' : null,
-        children: <>{accepted ? <FileAccepted /> : <FileInput />}</>,
+        children: (
+          <>
+            {accepted ? (
+              <FileAccepted />
+            ) : (
+              <FileInput
+                onDrop={(files) => {
+                  console.log('accepted files', files);
+                  closeAllModals();
+                  navigate('/missing-files');
+                }}
+                onReject={(files) => console.log('rejected files', files)}
+                children={undefined}
+              />
+            )}
+          </>
+        ),
       });
     };
 
