@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { allRoutes, RoutesType } from './common/config/routes';
 import { theme } from './common/styles/theme';
+import { ModalsProvider } from '@mantine/modals';
 
 const queryClient = new QueryClient();
 
@@ -14,17 +15,19 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <MantineProvider theme={theme}>
         <VLibras forceOnload={true} />
-        <BrowserRouter>
-          <Routes>
-            {allRoutes.map((route: RoutesType, index: number) => (
-              <Route
-                path={route.path}
-                key={index}
-                element={<route.element />}
-              />
-            ))}
-          </Routes>
-        </BrowserRouter>
+        <ModalsProvider>
+          <BrowserRouter>
+            <Routes>
+              {allRoutes.map((route: RoutesType, index: number) => (
+                <Route
+                  path={route.path}
+                  key={index}
+                  element={<route.element />}
+                />
+              ))}
+            </Routes>
+          </BrowserRouter>
+        </ModalsProvider>
       </MantineProvider>
     </QueryClientProvider>
   );

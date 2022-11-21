@@ -24,3 +24,7 @@ html {
     font-size: 12.5px;
   }
 }
+
+.mantine-Table-root tbody tr:nth-of-type(even) {
+  background-color: #dbecf0;
+}

@@ -1,9 +1,13 @@
 import { Anchor, Box, Title } from '@mantine/core';
 import { useForm, yupResolver } from '@mantine/form';
+import { openModal as openMantineModal } from '@mantine/modals';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowNarrowLeft } from 'tabler-icons-react';
 import vector from '../../assets/home.svg';
 import logo1 from '../../assets/logo1.svg';
+import FileAccepted from '../../common/components/FileAccepted';
+import FileInput from '../../common/components/FileInput';
 import Logo from '../../common/components/Logo';
 import MaskInput from '../../common/components/MaskInput';
 import OptionButton from '../../common/components/OptionButton';
@@ -14,6 +18,7 @@ import useStyles from './styles';
 export default function HomePage() {
   const { classes } = useStyles({ vector });
   const [formIsActive, setFormIsActive] = useState(true);
+  const [accepted, setAccepted] = useState(false);
 
   const form = useForm({
     validate: yupResolver(schema),
@@ -38,16 +43,30 @@ export default function HomePage() {
   }, [form.values.cnpj]);
 
   const Options = () => {
+    const navigate = useNavigate();
+
     const back = () => {
       setFormIsActive(true);
       localStorage.removeItem('EuContribuinte:CNPJ');
     };
 
+    const openModal = () => {
+      openMantineModal({
+        centered: true,
+        title: !accepted ? 'Faça upload da sua EFD' : null,
+        children: <>{accepted ? <FileAccepted /> : <FileInput />}</>,
+      });
+    };
+
     return (
       <Box className={classes.options}>
         <Title className={classes.title}>Escolha a opção desejada:</Title>
-        <OptionButton>Quero ver minhas notas fiscais</OptionButton>
-        <OptionButton>Quero verificar minha EFD</OptionButton>
+        <OptionButton onClick={() => navigate('/invoices')}>
+          Quero ver minhas notas fiscais
+        </OptionButton>
+        <OptionButton onClick={openModal}>
+          Quero verificar minha EFD
+        </OptionButton>
         <OptionButton>Quero calcular meu PGDAS</OptionButton>
         <OptionButton>Quero ajuda com as alíquotas</OptionButton>
         <Anchor className={classes.anchor} onClick={back}>
