@@ -83,7 +83,9 @@ export default function HomePage() {
         <OptionButton onClick={openModal}>
           Quero verificar minha EFD
         </OptionButton>
-        <OptionButton>Quero calcular meu PGDAS</OptionButton>
+        <OptionButton onClick={() => navigate('/pgdas')}>
+          Quero calcular meu PGDAS
+        </OptionButton>
         <OptionButton>Quero ajuda com as alíquotas</OptionButton>
         <Anchor className={classes.anchor} onClick={back}>
           <ArrowNarrowLeft /> quero inserir o CNPJ novamente!

@@ -1,6 +1,7 @@
 import HomePage from '../../../pages/Homepage';
 import Invoices from '../../../pages/Invoices';
 import MissingFiles from '../../../pages/MissingFiles';
+import PGDAS from '../../../pages/PGDAS';
 
 export type RoutesType = {
   path: string;
@@ -20,6 +21,10 @@ const allRoutes = [
   {
     path: '/missing-files',
     element: MissingFiles,
+  },
+  {
+    path: '/pgdas',
+    element: PGDAS,
   },
 ] as RoutesType[];
 
