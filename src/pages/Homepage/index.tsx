@@ -86,7 +86,9 @@ export default function HomePage() {
         <OptionButton onClick={() => navigate('/pgdas')}>
           Quero calcular meu PGDAS
         </OptionButton>
-        <OptionButton>Quero ajuda com as alíquotas</OptionButton>
+        <OptionButton onClick={() => navigate('/some')}>
+          Quero ajuda com as alíquotas
+        </OptionButton>
         <Anchor className={classes.anchor} onClick={back}>
           <ArrowNarrowLeft /> quero inserir o CNPJ novamente!
         </Anchor>
