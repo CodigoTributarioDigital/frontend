@@ -36,6 +36,9 @@ const useStyles = createStyles((theme) => ({
   },
   form: {
     width: '50%',
+    [`@media (max-width: ${theme.breakpoints.xl}px)`]: {
+      width: '70%',
+    },
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
