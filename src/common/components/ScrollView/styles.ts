@@ -7,6 +7,7 @@ const useStyles = createStyles((theme) => ({
     overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     gap: '.5rem',
     '&::-webkit-scrollbar': {
       width: '5px',

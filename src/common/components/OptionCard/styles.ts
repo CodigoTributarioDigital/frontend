@@ -4,6 +4,9 @@ import { colors } from '../../styles/theme/colors';
 const useStyles = createStyles((theme) => ({
   component: {
     width: '95%',
+    [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+      width: '90%',
+    },
     border: `2px solid ${colors.primary.light}`,
     '&:hover': {
       border: `2px solid ${colors.primary.dark}`,

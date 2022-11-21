@@ -4,6 +4,7 @@ import IconButton from '../../common/components/IconButton';
 import PageTitle from '../../common/components/PageTitle';
 import Table, { IObjects } from '../../common/components/Table';
 import { colors } from '../../common/styles/theme/colors';
+import PGDASDataTableRows from './PGDASDataTableRows';
 
 const header = [
   {
@@ -77,7 +78,19 @@ export default function PGDAS() {
           Verificar texto:
         </Title>
       </Box>
-      <Table header={header} rows={rows} />
+      <Table
+        header={
+          <>
+            <th>Chave de Acesso</th>
+            <th>Data de Emissão</th>
+            <th>Emitente</th>
+            <th>Remetente</th>
+            <th>Valor</th>
+            <th></th>
+          </>
+        }
+        rows={<PGDASDataTableRows data={[]} />}
+      />
     </Box>
   );
 }

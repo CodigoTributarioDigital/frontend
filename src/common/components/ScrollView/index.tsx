@@ -19,6 +19,7 @@ export default function ScrollView({ products }: IScrollView) {
             description={product.description}
             ncm={product.ncm}
             some={product.some}
+            fecoep={product.fecoep ?? '0'}
           />
         ))
       ) : (

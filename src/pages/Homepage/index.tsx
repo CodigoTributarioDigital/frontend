@@ -1,4 +1,5 @@
-import { Anchor, Box, Title } from '@mantine/core';
+import { Anchor, Box, Space, Title } from '@mantine/core';
+import { FileWithPath } from '@mantine/dropzone';
 import { useForm, yupResolver } from '@mantine/form';
 import { openModal as openMantineModal, closeAllModals } from '@mantine/modals';
 import { useEffect, useState } from 'react';
@@ -44,11 +45,16 @@ export default function HomePage() {
 
   const Options = () => {
     const navigate = useNavigate();
+    const [files, setFiles] = useState<FileWithPath[]>([]);
 
     const back = () => {
       setFormIsActive(true);
       localStorage.removeItem('EuContribuinte:CNPJ');
     };
+
+    useEffect(() => {
+      console.log(files);
+    }, [files]);
 
     const openModal = () => {
       openMantineModal({
@@ -62,8 +68,8 @@ export default function HomePage() {
               <FileInput
                 onDrop={(files) => {
                   console.log('accepted files', files);
-                  closeAllModals();
-                  navigate('/missing-files');
+                  // closeAllModals();
+                  // navigate('/missing-files');
                 }}
                 onReject={(files) => console.log('rejected files', files)}
                 children={undefined}
@@ -108,9 +114,12 @@ export default function HomePage() {
             <Box className={classes.titleContainer}>
               <Title className={classes.title}>Seja bem-vindo ao</Title>
               <Logo />
+              <Space h="xl" />
+              <Space h="xl" />
               <Title className={classes.labelInput}>
                 Insira seu CNPJ para prosseguir:
               </Title>
+              <Space h="md" />
               <form>
                 <MaskInput
                   mask={CNPJMask}

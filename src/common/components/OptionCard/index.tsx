@@ -5,9 +5,15 @@ interface IOptionCard {
   description: string;
   ncm: string;
   some: string;
+  fecoep: string;
 }
 
-export default function OptionCard({ description, ncm, some }: IOptionCard) {
+export default function OptionCard({
+  description,
+  ncm,
+  some,
+  fecoep,
+}: IOptionCard) {
   const { classes } = useStyles();
   return (
     <Box className={classes.component}>
@@ -15,6 +21,7 @@ export default function OptionCard({ description, ncm, some }: IOptionCard) {
       <Box className={classes.subtitles}>
         <Title className={classes.subtitle}>NCM: {ncm}</Title>
         <Title className={classes.subtitle}>Alíquota: {some}%</Title>
+        <Title className={classes.subtitle}>FECOEP: {fecoep}%</Title>
       </Box>
     </Box>
   );

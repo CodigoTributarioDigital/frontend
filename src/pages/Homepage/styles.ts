@@ -74,6 +74,7 @@ const useStyles = createStyles((theme, { vector }: IStyles) => ({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
+    // gap: '1rem',
   },
   options: {
     display: 'flex',

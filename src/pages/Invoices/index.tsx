@@ -1,76 +1,32 @@
 import { Box, Title } from '@mantine/core';
-import { FileDownload } from 'tabler-icons-react';
-import IconButton from '../../common/components/IconButton';
+import { useMediaQuery } from '@mantine/hooks';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import MaskInput from '../../common/components/MaskInput';
+import MobileTable from '../../common/components/MobileTable';
 import PageTitle from '../../common/components/PageTitle';
-import Table, { IObjects } from '../../common/components/Table';
+import Table from '../../common/components/Table';
+import { api } from '../../common/config/api';
 import { colors } from '../../common/styles/theme/colors';
 import { DateMask } from '../../common/utils/masks';
-
-const header = [
-  {
-    value: 'teste',
-    label: 'Chave de Acesso',
-  },
-  {
-    value: 'teste',
-    label: 'Data de Emissão',
-  },
-  {
-    value: 'teste',
-    label: 'Emitente',
-  },
-  {
-    value: 'teste',
-    label: 'Remetente',
-  },
-  {
-    value: 'teste',
-    label: 'Valor',
-  },
-  {
-    value: 'teste',
-    label: '',
-  },
-] as IObjects[];
-
-const rows = [
-  {
-    value: 'teste',
-    label: 'Chave de Acesso',
-  },
-  {
-    value: 'teste',
-    label: 'Data de Emissão',
-  },
-  {
-    value: 'teste',
-    label: 'Emitente',
-  },
-  {
-    value: 'teste',
-    label: 'Remetente',
-  },
-  {
-    value: 'teste',
-    label: 'Valor',
-  },
-  {
-    value: '',
-    label: <IconButton tooltip="Abrir PDF" Icon={FileDownload} />,
-  },
-] as IObjects[];
+import InvoiceDataTableRows from './InvoiceDataTableRows';
+import useStyles from './styles';
 
 export default function Invoices() {
+  const { classes } = useStyles();
+  const smallScreen = useMediaQuery('(max-width: 1000px)');
+  const [currentDate, setCurrentDate] = useState({
+    month: new Date().getMonth() + 1,
+    year: new Date().getFullYear(),
+  });
+  const cnpj = localStorage.getItem('EuContribuinte:CNPJ') as string;
+
+  const { data } = useQuery(['invoices'], () =>
+    api.get(`/list/${cnpj.replaceAll(/\D/g, '')}/01/2022`)
+  );
+
   return (
-    <Box
-      sx={{
-        padding: '2rem 3rem 2rem 3rem',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '2rem',
-      }}
-    >
+    <Box className={classes.component}>
       <Box>
         <PageTitle title="Minhas notas fiscais" />
         <Title
@@ -79,8 +35,33 @@ export default function Invoices() {
           Selecione o mês/ano para pesquisar
         </Title>
       </Box>
-      <MaskInput mask={DateMask} placeholder="MM/YYYY" />
-      <Table header={header} rows={rows} />
+      <MaskInput
+        mask={DateMask}
+        placeholder="MM/AAAA"
+        onChange={(e) =>
+          setCurrentDate({
+            ...currentDate,
+            month: Number(e.target.value.split('/')[0]),
+            year: Number(e.target.value.split('/')[1]),
+          })
+        }
+      />
+      {!smallScreen && (
+        <Table
+          header={
+            <>
+              <th>Chave de Acesso</th>
+              <th>Data de Emissão</th>
+              <th>Emitente</th>
+              <th>Remetente</th>
+              <th>Valor</th>
+              <th></th>
+            </>
+          }
+          rows={<InvoiceDataTableRows data={data} />}
+        />
+      )}
+      {smallScreen && <MobileTable />}
     </Box>
   );
 }

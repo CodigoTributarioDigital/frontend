@@ -7,32 +7,18 @@ export interface IObjects {
 }
 
 interface ITable {
-  header: IObjects[];
-  rows: IObjects[];
+  header: JSX.Element;
+  rows: JSX.Element;
 }
 
 export default function Table({ header, rows }: ITable) {
   const { classes } = useStyles();
   return (
     <MantineTable className={classes.component} striped>
-      <thead className={classes.head}>
-        <tr>
-          {header &&
-            header.map((header: IObjects, index: number) => (
-              <td className={classes.td} key={index}>
-                {header.label}
-              </td>
-            ))}
-        </tr>
+      <thead className={classes.head} id="dashboard-table-header">
+        <tr>{header}</tr>
       </thead>
-      <tbody className={classes.body}>
-        {rows &&
-          rows.map((row: IObjects, index: number) => (
-            <th className={classes.th} key={index}>
-              {row.label}
-            </th>
-          ))}
-      </tbody>
+      <tbody>{rows}</tbody>
     </MantineTable>
   );
 }
