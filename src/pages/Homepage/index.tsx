@@ -13,6 +13,7 @@ import Logo from '../../common/components/Logo';
 import MaskInput from '../../common/components/MaskInput';
 import OptionButton from '../../common/components/OptionButton';
 import { api } from '../../common/config/api';
+import { colors } from '../../common/styles/theme/colors';
 import { CNPJMask } from '../../common/utils/masks';
 import { initialValues, schema } from './schema';
 import useStyles from './styles';
@@ -88,6 +89,15 @@ export default function HomePage() {
       openMantineModal({
         centered: true,
         title: !accepted ? 'Faça upload da sua EFD' : null,
+        styles: {
+          title: {
+            fontSize: '1.3rem',
+            fontFamily: 'Poppins',
+            fontWeight: 600,
+            color: colors.texts.light,
+          },
+          close: { display: 'none' },
+        },
         children: (
           <>
             <FileInput
@@ -109,6 +119,9 @@ export default function HomePage() {
       openMantineModal({
         centered: true,
         title: null,
+        styles: {
+          close: { display: 'none' },
+        },
         children: (
           <>
             <FileAccepted />

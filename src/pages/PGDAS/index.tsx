@@ -9,10 +9,12 @@ import { api } from '../../common/config/api';
 import { colors } from '../../common/styles/theme/colors';
 import { DateMask } from '../../common/utils/masks';
 import { chartColors, datasets, labels } from './chart';
+import useStyles from './styles';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function PGDAS() {
+  const { classes } = useStyles();
   const [currentDate, setCurrentDate] = useState({
     month: new Date().getMonth() + 1,
     year: new Date().getFullYear(),
@@ -28,19 +30,7 @@ export default function PGDAS() {
     value?: string;
   }) => {
     return (
-      <Box
-        sx={{
-          width: '19.25rem',
-          height: '13rem',
-          boxShadow: ' 0px 4px 10px rgba(0, 0, 0, 0.3)',
-          borderRadius: '15px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '2rem',
-        }}
-      >
+      <Box className={classes.card}>
         <Title
           sx={{
             fontSize: '2rem',
@@ -81,15 +71,8 @@ export default function PGDAS() {
   }, []);
 
   return (
-    <Box
-      sx={{
-        padding: '2rem 3rem 2rem 3rem',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '2rem',
-      }}
-    >
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '.8rem' }}>
+    <Box className={classes.component}>
+      <Box className={classes.titleContainer}>
         <PageTitle title="Cálculo do PGDA ( Documento de Arrecadação do Simples Nacional)" />
         <MaskInput
           mask={DateMask}
@@ -103,13 +86,7 @@ export default function PGDAS() {
           }
         />
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '3.75rem',
-        }}
-      >
+      <Box className={classes.cardContainer}>
         <Card
           title="Valor Final"
           value={Number(data?.data?.final_value).toLocaleString('pt-br', {
@@ -140,16 +117,7 @@ export default function PGDAS() {
       >
         <PageTitle title="Distribuição dos impostos" />
         <br />
-        <Box
-          style={{
-            width: '100%',
-            height: '20rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '1rem',
-          }}
-        >
+        <Box className={classes.chartContainer}>
           <Title sx={{ fontSize: '1rem', fontWeight: 500 }}>
             Porcentagem emitida na {data?.data?.tribute_range}º Faixa
           </Title>
