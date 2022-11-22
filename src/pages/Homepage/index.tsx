@@ -141,7 +141,7 @@ export default function HomePage() {
           Quero verificar minha EFD
         </OptionButton>
         <OptionButton onClick={() => navigate('/pgdas')}>
-          Quero calcular meu PGDAS
+          Quero calcular meu Simples Nacional
         </OptionButton>
         <OptionButton onClick={() => navigate('/some')}>
           Quero ajuda com as alíquotas
