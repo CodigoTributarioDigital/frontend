@@ -1,4 +1,5 @@
 import { Box, Title } from '@mantine/core';
+import { useEffect, useState } from 'react';
 import { FileDownload } from 'tabler-icons-react';
 import IconButton from '../../common/components/IconButton';
 import MaskInput from '../../common/components/MaskInput';
@@ -6,6 +7,7 @@ import PageTitle from '../../common/components/PageTitle';
 import Table, { IObjects } from '../../common/components/Table';
 import { colors } from '../../common/styles/theme/colors';
 import { DateMask } from '../../common/utils/masks';
+import MissingFilesDataTableRows from './MissingFilesDataTableRows';
 
 const header = [
   {
@@ -62,6 +64,22 @@ const rows = [
 ] as IObjects[];
 
 export default function MissingFiles() {
+  const [efds, setEfds] = useState({
+    notes: [],
+    value: '',
+  });
+
+  useEffect(() => {
+    const efd = localStorage.getItem('EFD');
+    if (!efd) return;
+    console.log(JSON.parse(efd));
+    // setEfds({
+    //   ...efds,
+    //   notes: JSON.parse(efd).data,
+    //   value: JSON.parse(efd).value,
+    // });
+  }, []);
+
   return (
     <Box
       sx={{
@@ -79,7 +97,19 @@ export default function MissingFiles() {
           Identificamos que existem documentos faltando:
         </Title>
       </Box>
-      <Table header={header} rows={rows} />
+      <Table
+        header={
+          <>
+            <th>Chave de Acesso</th>
+            <th>Data de Emissão</th>
+            <th>Emitente</th>
+            <th>Remetente</th>
+            <th>Valor</th>
+            <th></th>
+          </>
+        }
+        rows={<MissingFilesDataTableRows data={efds.notes} />}
+      />
     </Box>
   );
 }

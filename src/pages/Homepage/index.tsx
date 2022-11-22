@@ -1,7 +1,7 @@
 import { Anchor, Box, Space, Title } from '@mantine/core';
-import { FileWithPath } from '@mantine/dropzone';
 import { useForm, yupResolver } from '@mantine/form';
-import { openModal as openMantineModal, closeAllModals } from '@mantine/modals';
+import { closeAllModals, openModal as openMantineModal } from '@mantine/modals';
+import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowNarrowLeft } from 'tabler-icons-react';
@@ -12,6 +12,7 @@ import FileInput from '../../common/components/FileInput';
 import Logo from '../../common/components/Logo';
 import MaskInput from '../../common/components/MaskInput';
 import OptionButton from '../../common/components/OptionButton';
+import { api } from '../../common/config/api';
 import { CNPJMask } from '../../common/utils/masks';
 import { initialValues, schema } from './schema';
 import useStyles from './styles';
@@ -40,21 +41,48 @@ export default function HomePage() {
 
   useEffect(() => {
     const cnpj = form.values.cnpj.replaceAll(/\D/g, '');
+
     if (cnpj.length === 14 && Object.keys(form.errors).length === 0) submit();
   }, [form.values.cnpj]);
 
   const Options = () => {
     const navigate = useNavigate();
-    const [files, setFiles] = useState<FileWithPath[]>([]);
 
     const back = () => {
       setFormIsActive(true);
       localStorage.removeItem('EuContribuinte:CNPJ');
     };
 
-    useEffect(() => {
-      console.log(files);
-    }, [files]);
+    const { mutate } = useMutation(
+      (formData: FormData) => {
+        return api.post('/upload', formData);
+      },
+      {
+        onSuccess(data) {
+          mutateValidation(data.data.path);
+        },
+      }
+    );
+
+    const cnpj = localStorage.getItem('EuContribuinte:CNPJ') as string;
+
+    const { mutate: mutateValidation } = useMutation(
+      (path: string) => {
+        return api.post(`/verify_efd/${cnpj.replaceAll(/\D/g, '')}`, {
+          efd_path: path,
+        });
+      },
+      {
+        onSuccess(data) {
+          if (data.data.length === 0) {
+            openSuccessModal();
+          } else {
+            localStorage.setItem('EFD', JSON.stringify(data));
+            navigate('/missing-files');
+          }
+        },
+      }
+    );
 
     const openModal = () => {
       openMantineModal({
@@ -62,19 +90,28 @@ export default function HomePage() {
         title: !accepted ? 'Faça upload da sua EFD' : null,
         children: (
           <>
-            {accepted ? (
-              <FileAccepted />
-            ) : (
-              <FileInput
-                onDrop={(files) => {
-                  console.log('accepted files', files);
-                  // closeAllModals();
-                  // navigate('/missing-files');
-                }}
-                onReject={(files) => console.log('rejected files', files)}
-                children={undefined}
-              />
-            )}
+            <FileInput
+              onDrop={(files) => {
+                const formData = new FormData();
+                formData.append('file', files[0]);
+                mutate(formData);
+                closeAllModals();
+              }}
+              onReject={(files) => console.log('rejected files', files)}
+              children={undefined}
+            />
+          </>
+        ),
+      });
+    };
+
+    const openSuccessModal = () => {
+      openMantineModal({
+        centered: true,
+        title: null,
+        children: (
+          <>
+            <FileAccepted />
           </>
         ),
       });

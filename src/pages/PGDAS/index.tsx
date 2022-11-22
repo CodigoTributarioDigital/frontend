@@ -1,66 +1,19 @@
 import { Box, Title } from '@mantine/core';
+import { useQuery } from '@tanstack/react-query';
 import { FileDownload } from 'tabler-icons-react';
 import IconButton from '../../common/components/IconButton';
 import PageTitle from '../../common/components/PageTitle';
 import Table, { IObjects } from '../../common/components/Table';
+import { api } from '../../common/config/api';
 import { colors } from '../../common/styles/theme/colors';
 import PGDASDataTableRows from './PGDASDataTableRows';
 
-const header = [
-  {
-    value: 'teste',
-    label: 'Chave de Acesso',
-  },
-  {
-    value: 'teste',
-    label: 'Data de Emissão',
-  },
-  {
-    value: 'teste',
-    label: 'Emitente',
-  },
-  {
-    value: 'teste',
-    label: 'Remetente',
-  },
-  {
-    value: 'teste',
-    label: 'Valor',
-  },
-  {
-    value: 'teste',
-    label: '',
-  },
-] as IObjects[];
-
-const rows = [
-  {
-    value: 'teste',
-    label: 'Chave de Acesso',
-  },
-  {
-    value: 'teste',
-    label: 'Data de Emissão',
-  },
-  {
-    value: 'teste',
-    label: 'Emitente',
-  },
-  {
-    value: 'teste',
-    label: 'Remetente',
-  },
-  {
-    value: 'teste',
-    label: 'Valor',
-  },
-  {
-    value: '',
-    label: <IconButton tooltip="Abrir PDF" Icon={FileDownload} />,
-  },
-] as IObjects[];
-
 export default function PGDAS() {
+  const cnpj = localStorage.getItem('EuContribuinte:CNPJ') as string;
+  const { data } = useQuery(['PGDAS'], () =>
+    api.get(`/pgda/${cnpj.replaceAll(/\D/g, '')}`)
+  );
+
   return (
     <Box
       sx={{
@@ -78,6 +31,15 @@ export default function PGDAS() {
           Verificar texto:
         </Title>
       </Box>
+      <Title
+        sx={{ fontSize: '1rem ', color: colors.texts.grey, fontWeight: 600 }}
+      >
+        Arrecadação bruta:{' '}
+        {Number(data?.data?.total).toLocaleString('pt-br', {
+          style: 'currency',
+          currency: 'BRL',
+        })}
+      </Title>
       <Table
         header={
           <>
@@ -89,7 +51,7 @@ export default function PGDAS() {
             <th></th>
           </>
         }
-        rows={<PGDASDataTableRows data={[]} />}
+        rows={<PGDASDataTableRows data={data} />}
       />
     </Box>
   );
