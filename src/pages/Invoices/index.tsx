@@ -61,42 +61,43 @@ export default function Invoices() {
           rows={<InvoiceDataTableRows data={data} />}
         />
       )}
-      {smallScreen && data?.data ? (
-        data?.data?.map((invoice: any, index: any) => {
-          console.log(invoice);
+      {smallScreen &&
+        (data?.data ? (
+          data?.data?.map((invoice: any, index: any) => {
+            console.log(invoice);
 
-          return (
+            return (
+              <MobileTable
+                key={index}
+                accessKey={invoice.key}
+                date={new Date(invoice.date).toLocaleDateString()}
+                issuer={invoice.emit}
+                sender={invoice.dest}
+                value={Number(invoice.value).toLocaleString('pr-br', {
+                  style: 'currency',
+                  currency: 'BRL',
+                })}
+              />
+            );
+          })
+        ) : (
+          <>
             <MobileTable
-              key={index}
-              accessKey={invoice.key}
-              date={new Date(invoice.date).toLocaleDateString()}
-              issuer={invoice.emit}
-              sender={invoice.dest}
-              value={Number(invoice.value).toLocaleString('pr-br', {
-                style: 'currency',
-                currency: 'BRL',
-              })}
+              accessKey={'NFe00901160010260002140106507391620720500020324'}
+              date={'05/01/2022'}
+              issuer={'xNome'}
+              sender={'xNome'}
+              value={'R$ 225,00'}
             />
-          );
-        })
-      ) : (
-        <>
-          <MobileTable
-            accessKey={'NFe00901160010260002140106507391620720500020324'}
-            date={'05/01/2022'}
-            issuer={'xNome'}
-            sender={'xNome'}
-            value={'R$ 225,00'}
-          />
-          <MobileTable
-            accessKey={'NFe00901160010260002140106507391620720500020324'}
-            date={'05/01/2022'}
-            issuer={'xNome'}
-            sender={'xNome'}
-            value={'R$ 225,00'}
-          />
-        </>
-      )}
+            <MobileTable
+              accessKey={'NFe00901160010260002140106507391620720500020324'}
+              date={'05/01/2022'}
+              issuer={'xNome'}
+              sender={'xNome'}
+              value={'R$ 225,00'}
+            />
+          </>
+        ))}
     </Box>
   );
 }
