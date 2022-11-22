@@ -3,9 +3,11 @@ import IconButton from '../../common/components/IconButton';
 
 export default function MissingFilesDataTableRows(data: any) {
   const rows: JSX.IntrinsicElements['tr'][] = [];
+  console.log(data);
+  
   for (let index = 0; index < data?.data?.length; index++) {
-    const invoice = data?.data?.data[index];
-
+    const invoice = data?.data[index];
+    
     rows.push(
       <tr>
         <td>{invoice.key}</td>
