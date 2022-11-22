@@ -64,20 +64,12 @@ const rows = [
 ] as IObjects[];
 
 export default function MissingFiles() {
-  const [efds, setEfds] = useState({
-    notes: [],
-    value: '',
-  });
+  const [efds, setEfds] = useState([]);
 
   useEffect(() => {
     const efd = localStorage.getItem('EFD');
     if (!efd) return;
-    console.log(JSON.parse(efd));
-    // setEfds({
-    //   ...efds,
-    //   notes: JSON.parse(efd).data,
-    //   value: JSON.parse(efd).value,
-    // });
+    setEfds(JSON.parse(efd).data)
   }, []);
 
   return (
@@ -108,7 +100,7 @@ export default function MissingFiles() {
             <th></th>
           </>
         }
-        rows={<MissingFilesDataTableRows data={efds.notes} />}
+        rows={<MissingFilesDataTableRows data={efds} />}
       />
     </Box>
   );
