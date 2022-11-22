@@ -90,6 +90,16 @@ const useStyles = createStyles((theme, { vector }: IStyles) => ({
       color: colors.primary.main,
     },
   },
+  sefaz: {
+    position: 'absolute',
+    bottom: 5,
+    right: 0,
+    width: '52.5vw',
+    textAlign: 'center',
+    [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+      display: 'none',
+    },
+  },
 }));
 
 export default useStyles;

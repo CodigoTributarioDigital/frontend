@@ -17,6 +17,7 @@ import { colors } from '../../common/styles/theme/colors';
 import { CNPJMask } from '../../common/utils/masks';
 import { initialValues, schema } from './schema';
 import useStyles from './styles';
+import sefaz from '../../assets/sefaz.svg';
 
 export default function HomePage() {
   const { classes } = useStyles({ vector });
@@ -153,36 +154,41 @@ export default function HomePage() {
   };
 
   return (
-    <Box className={classes.component}>
-      <Box className={classes.bgColor} />
-      <Box className={classes.container}>
-        <Box className={classes.leftFrame}>
-          <img src={logo1} alt="eucontribuinte" className={classes.logo} />
-        </Box>
-        <Box className={classes.rightFrame}>
-          {formIsActive ? (
-            <Box className={classes.titleContainer}>
-              <Title className={classes.title}>Seja bem-vindo ao</Title>
-              <Logo />
-              <Space h="xl" />
-              <Space h="xl" />
-              <Title className={classes.labelInput}>
-                Insira seu CNPJ para prosseguir:
-              </Title>
-              <Space h="md" />
-              <form>
-                <MaskInput
-                  mask={CNPJMask}
-                  placeholder="00.000.000/0000-00"
-                  {...form.getInputProps('cnpj')}
-                />
-              </form>
-            </Box>
-          ) : (
-            <Options />
-          )}
+    <>
+      <Box className={classes.component}>
+        <Box className={classes.bgColor} />
+        <Box className={classes.container}>
+          <Box className={classes.leftFrame}>
+            <img src={logo1} alt="eucontribuinte" className={classes.logo} />
+          </Box>
+          <Box className={classes.rightFrame}>
+            {formIsActive ? (
+              <Box className={classes.titleContainer}>
+                <Title className={classes.title}>Seja bem-vindo ao</Title>
+                <Logo />
+                <Space h="xl" />
+                <Space h="xl" />
+                <Title className={classes.labelInput}>
+                  Insira seu CNPJ para prosseguir:
+                </Title>
+                <Space h="md" />
+                <form>
+                  <MaskInput
+                    mask={CNPJMask}
+                    placeholder="00.000.000/0000-00"
+                    {...form.getInputProps('cnpj')}
+                  />
+                </form>
+              </Box>
+            ) : (
+              <Options />
+            )}
+          </Box>
         </Box>
       </Box>
-    </Box>
+      <Box className={classes.sefaz}>
+        <img src={sefaz} alt="Sefaz" />
+      </Box>
+    </>
   );
 }
