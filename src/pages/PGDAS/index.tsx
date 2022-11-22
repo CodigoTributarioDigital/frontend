@@ -1,5 +1,5 @@
 import { Box, Title } from '@mantine/core';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
 import { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
@@ -19,9 +19,6 @@ export default function PGDAS() {
   });
 
   const cnpj = localStorage.getItem('EuContribuinte:CNPJ') as string;
-  // const { data } = useQuery(['PGDAS'], () =>
-  //   api.get(`/pgda/${cnpj.replaceAll(/\D/g, '')}`)
-  // );
 
   const Card = ({
     title,
@@ -66,7 +63,7 @@ export default function PGDAS() {
     );
   };
 
-  const { mutate } = useMutation(
+  const { mutate, data } = useMutation(
     () => {
       return api.post(`/pgda/${cnpj.replaceAll(/\D/g, '')}`, {
         year_income: 180000,
@@ -113,9 +110,24 @@ export default function PGDAS() {
           gap: '3.75rem',
         }}
       >
-        <Card title="Valor Final" />
-        <Card title="Renda B.M" />
-        <Card title="Alíquota Efetiva" />
+        <Card
+          title="Valor Final"
+          value={Number(data?.data?.final_value).toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL',
+          })}
+        />
+        <Card
+          title="Renda B.M"
+          value={Number(data?.data?.monthly_income).toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL',
+          })}
+        />
+        <Card
+          title="Alíquota Efetiva"
+          value={`${data?.data?.effective_some}%`}
+        />
       </Box>
       <Box
         sx={{
@@ -139,10 +151,10 @@ export default function PGDAS() {
           }}
         >
           <Title sx={{ fontSize: '1rem', fontWeight: 500 }}>
-            Porcentagem emitida na Xº Faixa
+            Porcentagem emitida na {data?.data?.tribute_range}º Faixa
           </Title>
           <Doughnut
-            style={{ width: '100%', height: '20rem' }}
+            style={{ maxWidth: '50rem', maxHeight: '50rem' }}
             data={{
               labels: labels,
               datasets: datasets,
@@ -164,7 +176,16 @@ export default function PGDAS() {
                     borderRadius: '10%',
                   }}
                 />
-                <Title sx={{ fontSize: '1rem' }}>{obj.label} - R$ xxx,xx</Title>
+                <Title sx={{ fontSize: '1rem' }}>
+                  {obj.label} -{' '}
+                  {Number(data?.data[`${obj.key}_value`]).toLocaleString(
+                    'pt-br',
+                    {
+                      style: 'currency',
+                      currency: 'BRL',
+                    }
+                  )}
+                </Title>
               </Box>
             ))}
           </Box>

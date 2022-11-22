@@ -4,12 +4,12 @@ import IconButton from '../../common/components/IconButton';
 export default function MissingFilesDataTableRows(data: any) {
   const rows: JSX.IntrinsicElements['tr'][] = [];
   console.log(data);
-  
+
   for (let index = 0; index < data?.data?.length; index++) {
     const invoice = data?.data[index];
-    
+
     rows.push(
-      <tr>
+      <tr style={{ color: 'red' }}>
         <td>{invoice.key}</td>
         <td>{new Date(invoice.date).toLocaleDateString()}</td>
         <td>{invoice.emit}</td>

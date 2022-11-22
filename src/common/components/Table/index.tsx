@@ -16,7 +16,7 @@ export default function Table({ header, rows }: ITable) {
   return (
     <MantineTable className={classes.component} striped>
       <thead className={classes.head} id="dashboard-table-header">
-        <tr>{header}</tr>
+        <tr style={{ color: 'white' }}>{header}</tr>
       </thead>
       <tbody>{rows}</tbody>
     </MantineTable>

@@ -28,8 +28,6 @@ html {
 .mantine-Table-root tbody tr:nth-of-type(even) {
   background-color: #dbecf0;
 }
-
-thead tr th {
+.mantine-Table-root thead tr th {
   color: white;
 }
-

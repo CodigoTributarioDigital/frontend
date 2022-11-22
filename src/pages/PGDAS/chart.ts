@@ -1,12 +1,12 @@
-export const labels = ['CCP', 'ICMS', 'COFINS', 'IRPJ', 'CSLL', 'PIS/PASEP'];
+export const labels = ['CPP', 'ICMS', 'COFINS', 'IRPJ', 'CSLL', 'PIS/PASEP'];
 
 export const chartColors = [
-  { label: 'CCP', color: '#C7BAFF' },
-  { label: 'ICMS', color: '#0BA8CC' },
-  { label: 'COFINS', color: '#027F9B' },
-  { label: 'IRPJ', color: '#035373' },
-  { label: 'CSLL', color: '#42C1DE' },
-  { label: 'PIS/PASEP', color: '#A1D2E6' },
+  { key: 'CPP', label: 'CPP', color: '#C7BAFF' },
+  { key: 'ICMS', label: 'ICMS', color: '#0BA8CC' },
+  { key: 'Cofins', label: 'COFINS', color: '#027F9B' },
+  { key: 'IRPJ', label: 'IRPJ', color: '#035373' },
+  { key: 'CSLL', label: 'CSLL', color: '#42C1DE' },
+  { key: 'PIS_Pasep', label: 'PIS/PASEP', color: '#A1D2E6' },
 ];
 
 export const datasets = [
