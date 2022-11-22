@@ -14,11 +14,11 @@ interface ITable {
 export default function Table({ header, rows }: ITable) {
   const { classes } = useStyles();
   return (
-    <MantineTable className={classes.component} striped>
+    <MantineTable className={classes.component}>
       <thead className={classes.head} id="dashboard-table-header">
         <tr style={{ color: 'white' }}>{header}</tr>
       </thead>
-      <tbody>{rows}</tbody>
+      <tbody style={{ backgroundColor: 'white' }}>{rows}</tbody>
     </MantineTable>
   );
 }
